@@ -17,7 +17,7 @@ This sample demonstrates a ASP.NET Core Web App calling a ASP.NET Core Web API t
 1. The client ASP.NET Core Web App uses the Microsoft Authentication Library (MSAL) to sign-in and obtain a JWT [Access Tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from **Azure AD**.
 1. The [Access Tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) is used as a bearer token to authorize the user to call the ASP.NET Core Web API protected by **Azure AD**.
 
-![Scenario Image](ReadmeFiles/topology.png)
+![Scenario Image](./ReadmeFiles/topology.png)
 
 
 ## Prerequisites
@@ -66,14 +66,14 @@ There are two projects in this sample. Each needs to be separately registered in
    1. Under **Supported account types**, select **Accounts in this organizational directory only**
    1. Click **Register** to create the application.
 
-      ![AppRegistrationMain](../../ReadmeFiles/AppRegistrationMainScreen.png)
+      ![AppRegistrationMain](./ReadmeFiles/AppRegistrationMainScreen.png)
    
   
    1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 
    1. Select **ID tokens (used for implicit and hybrid flows)** checkbox.
 
-      ![Configure Web Screen](../../ReadmeFiles/ConfigureWebScreen.png)
+      ![Configure Web Screen](./ReadmeFiles/ConfigureWebScreen.png)
 
    1. Click **Save** to save your changes.
             
@@ -115,14 +115,14 @@ There are two projects in this sample. Each needs to be separately registered in
    1. Under **Supported account types**, select **Accounts in this organizational directory only**
    1. Click **Register** to create the application.
 
-      ![AppRegistrationMain](../../ReadmeFiles/AppRegistrationMainScreen.png)
+      ![AppRegistrationMain](./ReadmeFiles/AppRegistrationMainScreen.png)
    
   
    1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
    1. In the app's registration screen, select **Authentication** in the menu.
       - If you don't have a platform added, select **Add a platform** and select the **Web** option.
 
-       ![ConfigurePlatformsScreen](../../ReadmeFiles/ConfigurePlatformsScreen.png)   
+       ![ConfigurePlatformsScreen](./ReadmeFiles/ConfigurePlatformsScreen.png)   
 
     
    1. In the **Redirect URI** section enter the following redirect URIs: 
@@ -135,7 +135,7 @@ There are two projects in this sample. Each needs to be separately registered in
         
    1. Select **ID tokens (used for implicit and hybrid flows)** checkbox.
 
-      ![Configure Web Screen](../../ReadmeFiles/ConfigureWebScreen.png)
+      ![Configure Web Screen](./ReadmeFiles/ConfigureWebScreen.png)
 
    1. Click **Save** to save your changes.
    
@@ -245,7 +245,7 @@ To provide a recommendation, visit the following [User Voice page](https://feedb
  <summary>Expand to see how to use the sample</summary>
  Open your web browser and make a request to the app. The app immediately attempts to authenticate you via the Microsoft identity platform endpoint. Sign in using an user account in that tenant.
 
- ![First time Consent](ReadmeFiles/Sign-in-Consent.png)
+ ![First time Consent](./ReadmeFiles/Sign-in-Consent.png)
 
 1. On the home page, the app lists the various claims it obtained from your [ID token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens). You'd notice a claim named `roles`. There will be one `roles` claim for each app role the signed-in use is assigned to.
 

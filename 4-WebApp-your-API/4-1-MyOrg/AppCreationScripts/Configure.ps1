@@ -197,10 +197,10 @@ Function ConfigureApplications
     Connect-MgGraph -TenantId $TenantId -Scopes "Application.ReadWrite.All"
 
    # Create the service AAD application
-   Write-Host "Creating the AAD application (New_TodoListService-aspnetcore-webapi)"
+   Write-Host "Creating the AAD application (TodoListService-aspnetcore-webapi)"
    
    # create the application 
-   $serviceAadApplication = New-MgApplication -DisplayName "New_TodoListService-aspnetcore-webapi" `
+   $serviceAadApplication = New-MgApplication -DisplayName "TodoListService-aspnetcore-webapi" `
                                                        -Web `
                                                        @{ `
                                                            HomePageUrl = "https://localhost:44351"; `
@@ -243,9 +243,9 @@ Function ConfigureApplications
     if ($scopes.Count -ge 0) 
     {
         $scope = CreateScope -value access_as_user  `
-        -userConsentDisplayName "Access New_TodoListService-aspnetcore-webapi"  `
-        -userConsentDescription "Allow the application to access New_TodoListService-aspnetcore-webapi on your behalf."  `
-        -adminConsentDisplayName "Access New_TodoListService-aspnetcore-webapi"  `
+        -userConsentDisplayName "Access TodoListService-aspnetcore-webapi"  `
+        -userConsentDescription "Allow the application to access TodoListService-aspnetcore-webapi on your behalf."  `
+        -adminConsentDisplayName "Access TodoListService-aspnetcore-webapi"  `
         -adminConsentDescription "Allows the app to have the same access to information in the directory on behalf of the signed-in user."
             
         $scopes.Add($scope)
@@ -254,22 +254,22 @@ Function ConfigureApplications
      
     # add/update scopes
     Update-MgApplication -ApplicationId $serviceAadApplication.Id -Api @{Oauth2PermissionScopes = $scopes}
-    Write-Host "Done creating the service application (New_TodoListService-aspnetcore-webapi)"
+    Write-Host "Done creating the service application (TodoListService-aspnetcore-webapi)"
 
     # URL of the AAD application in the Azure portal
     # Future? $servicePortalUrl = "https://portal.azure.com/#@"+$tenantName+"/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/"+$serviceAadApplication.AppId+"/objectId/"+$serviceAadApplication.ObjectId+"/isMSAApp/"
     $servicePortalUrl = "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/CallAnAPI/appId/"+$serviceAadApplication.AppId+"/objectId/"+$serviceAadApplication.ObjectId+"/isMSAApp/"
-    Add-Content -Value "<tr><td>service</td><td>$currentAppId</td><td><a href='$servicePortalUrl'>New_TodoListService-aspnetcore-webapi</a></td></tr>" -Path createdApps.html
+    Add-Content -Value "<tr><td>service</td><td>$currentAppId</td><td><a href='$servicePortalUrl'>TodoListService-aspnetcore-webapi</a></td></tr>" -Path createdApps.html
 
    # Create the client AAD application
-   Write-Host "Creating the AAD application (New_TodoListClient-aspnetcore-webapi)"
+   Write-Host "Creating the AAD application (TodoListClient-aspnetcore-webapi)"
    # Get a 6 months application key for the client Application
    $fromDate = [DateTime]::Now;
    $key = CreateAppKey -fromDate $fromDate -durationInMonths 6
    
    
    # create the application 
-   $clientAadApplication = New-MgApplication -DisplayName "New_TodoListClient-aspnetcore-webapi" `
+   $clientAadApplication = New-MgApplication -DisplayName "TodoListClient-aspnetcore-webapi" `
                                                       -Web `
                                                       @{ `
                                                           RedirectUris = "https://localhost:44321/", "https://localhost:44321/signin-oidc"; `
@@ -284,7 +284,7 @@ Function ConfigureApplications
     #add password to the application
     $pwdCredential = Add-MgApplicationPassword -ApplicationId $clientAadApplication.Id -PasswordCredential $key
     $tenantName = (Get-MgApplication -ApplicationId $clientAadApplication.Id).PublisherDomain
-    Update-MgApplication -ApplicationId $clientAadApplication.Id -IdentifierUris @("https://$tenantName/New_TodoListClient-aspnetcore-webapi")
+    Update-MgApplication -ApplicationId $clientAadApplication.Id -IdentifierUris @("https://$tenantName/TodoListClient-aspnetcore-webapi")
     
     # create the service principal of the newly created application 
     $currentAppId = $clientAadApplication.AppId
@@ -297,18 +297,18 @@ Function ConfigureApplications
         New-MgApplicationOwnerByRef -ApplicationId $clientAadApplication.Id  -BodyParameter = @{"@odata.id" = "htps://graph.microsoft.com/v1.0/directoryObjects/$user.ObjectId"}
         Write-Host "'$($user.UserPrincipalName)' added as an application owner to app '$($clientServicePrincipal.DisplayName)'"
     }
-    Write-Host "Done creating the client application (New_TodoListClient-aspnetcore-webapi)"
+    Write-Host "Done creating the client application (TodoListClient-aspnetcore-webapi)"
 
     # URL of the AAD application in the Azure portal
     # Future? $clientPortalUrl = "https://portal.azure.com/#@"+$tenantName+"/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/"+$clientAadApplication.AppId+"/objectId/"+$clientAadApplication.ObjectId+"/isMSAApp/"
     $clientPortalUrl = "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/CallAnAPI/appId/"+$clientAadApplication.AppId+"/objectId/"+$clientAadApplication.ObjectId+"/isMSAApp/"
-    Add-Content -Value "<tr><td>client</td><td>$currentAppId</td><td><a href='$clientPortalUrl'>New_TodoListClient-aspnetcore-webapi</a></td></tr>" -Path createdApps.html
+    Add-Content -Value "<tr><td>client</td><td>$currentAppId</td><td><a href='$clientPortalUrl'>TodoListClient-aspnetcore-webapi</a></td></tr>" -Path createdApps.html
     $requiredResourcesAccess = New-Object System.Collections.Generic.List[Microsoft.Graph.PowerShell.Models.MicrosoftGraphRequiredResourceAccess]
 
     
     # Add Required Resources Access (from 'client' to 'service')
     Write-Host "Getting access from 'client' to 'service'"
-    $requiredPermissions = GetRequiredPermissions -applicationDisplayName "New_TodoListService-aspnetcore-webapi" `
+    $requiredPermissions = GetRequiredPermissions -applicationDisplayName "TodoListService-aspnetcore-webapi" `
         -requiredDelegatedPermissions "access_as_user" `
     
 

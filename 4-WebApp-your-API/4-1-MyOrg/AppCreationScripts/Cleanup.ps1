@@ -37,18 +37,18 @@ Function Cleanup
     # Removes the applications
     Write-Host "Cleaning-up applications from tenant '$tenantId'"
 
-    Write-Host "Removing 'service' (New_TodoListService-aspnetcore-webapi) if needed"
+    Write-Host "Removing 'service' (TodoListService-aspnetcore-webapi) if needed"
     try
     {
-        Get-MgApplication -Filter "DisplayName eq 'New_TodoListService-aspnetcore-webapi'"  | ForEach-Object {Remove-MgApplication -ApplicationId $_.Id }
+        Get-MgApplication -Filter "DisplayName eq 'TodoListService-aspnetcore-webapi'"  | ForEach-Object {Remove-MgApplication -ApplicationId $_.Id }
     }
     catch
     {
-	    Write-Host "Unable to remove the 'New_TodoListService-aspnetcore-webapi' . Try deleting manually." -ForegroundColor White -BackgroundColor Red
+	    Write-Host "Unable to remove the 'TodoListService-aspnetcore-webapi' . Try deleting manually." -ForegroundColor White -BackgroundColor Red
     }
 
-    Write-Host "Making sure there are no more (New_TodoListService-aspnetcore-webapi) applications found, will remove if needed..."
-    $apps = Get-MgApplication -Filter "DisplayName eq 'New_TodoListService-aspnetcore-webapi'"
+    Write-Host "Making sure there are no more (TodoListService-aspnetcore-webapi) applications found, will remove if needed..."
+    $apps = Get-MgApplication -Filter "DisplayName eq 'TodoListService-aspnetcore-webapi'"
     
     if ($apps)
     {
@@ -58,30 +58,30 @@ Function Cleanup
     foreach ($app in $apps) 
     {
         Remove-MgApplication -ApplicationId $app.Id
-        Write-Host "Removed New_TodoListService-aspnetcore-webapi.."
+        Write-Host "Removed TodoListService-aspnetcore-webapi.."
     }
 
     # also remove service principals of this app
     try
     {
-        Get-MgServicePrincipal -filter "DisplayName eq 'New_TodoListService-aspnetcore-webapi'" | ForEach-Object {Remove-MgServicePrincipal -ApplicationId $_.Id -Confirm:$false}
+        Get-MgServicePrincipal -filter "DisplayName eq 'TodoListService-aspnetcore-webapi'" | ForEach-Object {Remove-MgServicePrincipal -ApplicationId $_.Id -Confirm:$false}
     }
     catch
     {
-	    Write-Host "Unable to remove ServicePrincipal 'New_TodoListService-aspnetcore-webapi' . Try deleting manually from Enterprise applications." -ForegroundColor White -BackgroundColor Red
+	    Write-Host "Unable to remove ServicePrincipal 'TodoListService-aspnetcore-webapi' . Try deleting manually from Enterprise applications." -ForegroundColor White -BackgroundColor Red
     }
-    Write-Host "Removing 'client' (New_TodoListClient-aspnetcore-webapi) if needed"
+    Write-Host "Removing 'client' (TodoListClient-aspnetcore-webapi) if needed"
     try
     {
-        Get-MgApplication -Filter "DisplayName eq 'New_TodoListClient-aspnetcore-webapi'"  | ForEach-Object {Remove-MgApplication -ApplicationId $_.Id }
+        Get-MgApplication -Filter "DisplayName eq 'TodoListClient-aspnetcore-webapi'"  | ForEach-Object {Remove-MgApplication -ApplicationId $_.Id }
     }
     catch
     {
-	    Write-Host "Unable to remove the 'New_TodoListClient-aspnetcore-webapi' . Try deleting manually." -ForegroundColor White -BackgroundColor Red
+	    Write-Host "Unable to remove the 'TodoListClient-aspnetcore-webapi' . Try deleting manually." -ForegroundColor White -BackgroundColor Red
     }
 
-    Write-Host "Making sure there are no more (New_TodoListClient-aspnetcore-webapi) applications found, will remove if needed..."
-    $apps = Get-MgApplication -Filter "DisplayName eq 'New_TodoListClient-aspnetcore-webapi'"
+    Write-Host "Making sure there are no more (TodoListClient-aspnetcore-webapi) applications found, will remove if needed..."
+    $apps = Get-MgApplication -Filter "DisplayName eq 'TodoListClient-aspnetcore-webapi'"
     
     if ($apps)
     {
@@ -91,17 +91,17 @@ Function Cleanup
     foreach ($app in $apps) 
     {
         Remove-MgApplication -ApplicationId $app.Id
-        Write-Host "Removed New_TodoListClient-aspnetcore-webapi.."
+        Write-Host "Removed TodoListClient-aspnetcore-webapi.."
     }
 
     # also remove service principals of this app
     try
     {
-        Get-MgServicePrincipal -filter "DisplayName eq 'New_TodoListClient-aspnetcore-webapi'" | ForEach-Object {Remove-MgServicePrincipal -ApplicationId $_.Id -Confirm:$false}
+        Get-MgServicePrincipal -filter "DisplayName eq 'TodoListClient-aspnetcore-webapi'" | ForEach-Object {Remove-MgServicePrincipal -ApplicationId $_.Id -Confirm:$false}
     }
     catch
     {
-	    Write-Host "Unable to remove ServicePrincipal 'New_TodoListClient-aspnetcore-webapi' . Try deleting manually from Enterprise applications." -ForegroundColor White -BackgroundColor Red
+	    Write-Host "Unable to remove ServicePrincipal 'TodoListClient-aspnetcore-webapi' . Try deleting manually from Enterprise applications." -ForegroundColor White -BackgroundColor Red
     }
 }
 
